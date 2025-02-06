@@ -1,0 +1,12 @@
+/* style.qss */
+QLabel, QTreeWidget, QHeaderView::section {
+    font-size: 20px;
+}
+
+QHeaderView::horizontal {
+    border-bottom: 2px solid black;
+}
+
+QHeaderView::horizontal {
+    border-bottom: 2px solid black;
+}
