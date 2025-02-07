@@ -31,8 +31,7 @@ Run the program using the app.py file.
 python app.py
 ```
 ### Additional Files (lib)
-The /lib directory contains additional required files and modules. It also includes the config.json file for settings.
-See [Configuration](#configuration).
+The /lib directory contains additional required files and modules.
 
 ### Data Directory (data)
 Place all the CSV files to be analyzed in the directory /data.
@@ -109,14 +108,14 @@ may harm your system!
 using a formula as described above you can write your
 own script for handling data. To write your own python script 
 create a new python file in /lib/personal_scripts. The script name has to
-be the same as how you named it in the config.json. The file itself 
+be the same as how you mentioned it in the config.json. The file itself 
 has to contain a function with the same name as the file and exactly 
 one parameter. This parameter contains a pandas dataframe with 
 the data from your CSV file. After your calculation the function 
 must return a column of a dataframe with the same length as the 
-original dataframe.
-See in app.py function calc_data() to understand how your 
-return value is handled.
+original dataframe. Take a look at /lib/personal_scripts/test_script.py
+as an example. To understand how your return value is 
+handled take a look at calc_data() in main_window.py.
 
 ## How to use CSVthis GUI
 1. First choose a file to analyse in the top left corner. 
