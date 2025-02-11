@@ -104,9 +104,15 @@ column you want to use in your formula. You can use operands or brackets,
 just like you would write a formula in python. CAREFUL: CSVthis uses 
 the eval()-function so commands like "os.system('rm -rf /')" 
 may harm your system!
-- script: Recommended for advanced users with Python skills! Instead of 
+- scripts: Recommended for advanced users with Python skills! 
+Instead of 
 using a formula as described above you can write your
-own script for handling data. To write your own python script 
+own scripts for handling data. 
+It contains another object with a list of your scripts.
+Each key is
+the identifier of your script and will be displayed as the graphs name.
+Each value contains the filename of your script.
+To write your own python script 
 create a new python file in /lib/personal_scripts. The script name has to
 be the same as how you mentioned it in the config.json. The file itself 
 has to contain a function with the same name as the file and exactly 
