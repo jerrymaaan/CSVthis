@@ -1,6 +1,7 @@
 # CSVthis: Can Someone Visualize this?
 
-For the analysis of CSV files. Primarily dedicated to the project "OELEK". 
+A graphical user interface for analysing data from CSV files. 
+Primarily dedicated to the project "OELEK". 
 
 Author: Jeremias Friedel
 
@@ -23,6 +24,9 @@ You can install them via pip:
 ```bash
 pip install PyQt5 pyqtgraph pandas
 ```
+
+Should work on mac and linux (probably without the icon in taskbar). 
+Developed and tested on windows 11 and python 3.10.
 
 ## Program Structure
 ### Main Script (app.py)
