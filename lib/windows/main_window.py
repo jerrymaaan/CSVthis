@@ -36,7 +36,7 @@ class MainWindow(QMainWindow):
             exit(1)
 
         # reads config.json
-        with open('lib/config.json', 'r') as f:
+        with open('config.json', 'r') as f:
             self.CONFIG = json.load(f)
 
         # main window settings
@@ -266,30 +266,30 @@ class MainWindow(QMainWindow):
                 else:
                     print("One ore more columns from formular doesn't exist in CSV-file.")
 
-            elif "script" in calc_axis:   # calculates new data with script
-                # gets script name and columns from config.json
-                script_name = calc_axis["script"]
-                name = calc_axis["name"]
+            elif "scripts" in calc_axis:   # calculates new data with scripts
+                for name, script in calc_axis["scripts"].items():
+                    # key "name" is the name of the dataset; value "script" is name of the script file
+                    script_name = script
 
-                # path to all personal scripts
-                file_path = os.path.join("lib/personal_scripts", f"{script_name}.py")
+                    # path to all personal scripts
+                    file_path = os.path.join("lib/personal_scripts", f"{script_name}.py")
 
-                # loading module dynamically
-                spec = importlib.util.spec_from_file_location(script_name, file_path)
-                module = importlib.util.module_from_spec(spec)
-                spec.loader.exec_module(module)
+                    # loading module dynamically
+                    spec = importlib.util.spec_from_file_location(script_name, file_path)
+                    module = importlib.util.module_from_spec(spec)
+                    spec.loader.exec_module(module)
 
-                # tries to call function with same name as script
-                function = getattr(module, script_name, None)
+                    # tries to call function with same name as script
+                    function = getattr(module, script_name, None)
 
-                if callable(function):
-                    try:
-                        result = function(self.df.copy())  # calls function
-                        self.df[name] = round(result, 5)
-                    except Exception as e:
-                        print(f"Error trying to run script '{script_name}':", e)
-                else:
-                    print(f"The function '{script_name}' doesn't exist in the script file.")
+                    if callable(function):
+                        try:
+                            result = function(self.df.copy())  # calls function
+                            self.df[name] = round(result, 5)
+                        except Exception as e:
+                            print(f"Error trying to run script '{script_name}':", e)
+                    else:
+                        print(f"The function '{script_name}' doesn't exist in the script file.")
 
     def plot_data(self):
         # -------------- x axis --------------
@@ -356,9 +356,35 @@ class MainWindow(QMainWindow):
                     )
 
             # checks if column is in any calc_y_axes from config.json
-            calc_axes = self.CONFIG["calc_y_axes"]
-            for calc_axis in calc_axes:
-                if column_from_df == calc_axis["name"]:
+            for calc_axis in self.CONFIG["calc_y_axes"]:
+                # plots axis for data using formula or scripts
+                if (column_from_df == calc_axis["name"]
+                        or ("scripts" in calc_axis and column_from_df in calc_axis["scripts"].keys())):
+                    category = calc_axis["name"]
+
+                    # gets ViewBox, axis
+                    vb = self.vb_list[category]
+                    axis = self.axis_list[category]
+                    axis_color = axis.pen().color().name()
+
+                    # creates new curve and adds curve to ViewBox; plots data on one of secondary y-axes
+                    curve = pg.PlotCurveItem(x_data, y_data, pen=axis_color)
+                    vb.addItem(curve)
+
+                    # syncs every vb with plot widget; needs extra function so lambda gets new vb for each iteration
+                    self.sync_vb_and_plotwidget(vb)
+
+                    # saves curve object
+                    self.curve_list[column_from_df] = curve
+
+                    # activates clickable curve
+                    curve.setClickable(True)
+                    curve.sigClicked.connect(
+                        lambda _, ev, color=axis_color, col=column_from_df: self.show_plot_label(ev, color, col)
+                    )
+
+                # plots axis for data using scripts
+                if "scripts" in calc_axis and column_from_df in calc_axis["scripts"].keys():
                     category = calc_axis["name"]
 
                     # gets ViewBox, axis
