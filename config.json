@@ -1,7 +1,7 @@
 {
     "settings": {
         "use_case": "CSVthis",
-        "version": "1.0.1",
+        "version": "1.1.0",
         "column_in_hh_mm_ss": false,
         "seperator": ";"
     },
