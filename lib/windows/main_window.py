@@ -357,7 +357,7 @@ class MainWindow(QMainWindow):
 
             # checks if column is in any calc_y_axes from config.json
             for calc_axis in self.CONFIG["calc_y_axes"]:
-                # plots axis for data using formula or scripts
+                # plots axis for data using formula
                 if (column_from_df == calc_axis["name"]
                         or ("scripts" in calc_axis and column_from_df in calc_axis["scripts"].keys())):
                     category = calc_axis["name"]
