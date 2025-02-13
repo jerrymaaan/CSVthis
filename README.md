@@ -111,11 +111,7 @@ may harm your system!
 - scripts: Recommended for advanced users with Python skills! 
 Instead of 
 using a formula as described above you can write your
-own scripts for handling data. 
-It contains another object with a list of your scripts.
-Each key is
-the identifier of your script and will be displayed as the graphs name.
-Each value contains the filename of your script.
+own script for handling data.
 To write your own python script 
 create a new python file in /lib/personal_scripts. The script name has to
 be the same as how you mentioned it in the config.json. The file itself 
