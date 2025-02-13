@@ -1,7 +1,7 @@
 {
     "settings": {
         "use_case": "CSVthis",
-        "version": "1.0.1",
+        "version": "1.1.0",
         "column_in_hh_mm_ss": false,
         "seperator": ";"
     },
@@ -10,7 +10,7 @@
         "column": "time /s"
     },
     "main_y_axis": {
-        "name": "I",
+        "name": "cur",
         "label": "Strom / A",
         "columns": [
             "I /A"
@@ -18,7 +18,7 @@
     },
     "secondary_y_axes": [
         {
-            "name": "U",
+            "name": "vol",
             "label": "Spannung / V",
             "color": "blue",
             "columns": [
@@ -28,7 +28,7 @@
     ],
     "calc_y_axes": [
         {
-            "name": "P",
+            "name": "pow",
             "label": "Leistung / W",
             "color": "green",
             "formula": "([E /V] * [I /A])"
@@ -37,7 +37,10 @@
             "name": "test",
             "label": "Test / W",
             "color": "orange",
-            "script": "test_script"
+            "scripts": {
+                "test1": "test_script",
+                "test2": "test_script2"
+            }
         }
     ]
 }
