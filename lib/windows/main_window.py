@@ -36,7 +36,7 @@ class MainWindow(QMainWindow):
             exit(1)
 
         # reads config.json
-        with open('lib/config.json', 'r') as f:
+        with open('config.json', 'r') as f:
             self.CONFIG = json.load(f)
 
         # main window settings
