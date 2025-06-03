@@ -5,7 +5,7 @@ from PyQt5.QtCore import Qt
 class LoadingWindow(QDialog):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Laden...")
+        self.setWindowTitle("Loading...")
         self.setWindowModality(Qt.ApplicationModal)  # prevents interaction with other windows
         self.setFixedSize(400, 100)
 
@@ -17,7 +17,7 @@ class LoadingWindow(QDialog):
         self.setLayout(self.win_layout)
 
         # text
-        self.label = QLabel("Bitte warten, Daten werden geladen...")
+        self.label = QLabel("Please wait, data is loading...")
         self.label.setAlignment(Qt.AlignCenter)
         self.win_layout.addWidget(self.label)
 

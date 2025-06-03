@@ -70,13 +70,13 @@ class MainWindow(QMainWindow):
         self.dropdown_layout.setAlignment(Qt.AlignLeft)
 
         # dropdown label
-        self.dropdown_label = QLabel("Datei:")
+        self.dropdown_label = QLabel("Data:")
         self.dropdown_layout.addWidget(self.dropdown_label)
 
         # dropdown
         self.dropdown = QComboBox()
         dropdown_list = self.csv_files
-        dropdown_list.insert(0, "Datei auswählen")
+        dropdown_list.insert(0, "Choose data")
         self.dropdown.addItems(dropdown_list)
         self.dropdown.currentTextChanged.connect(self.choose_file)  # type: ignore
         self.dropdown_layout.addWidget(self.dropdown)
@@ -87,17 +87,17 @@ class MainWindow(QMainWindow):
         self.item.setFlags(self.item.flags() & ~Qt.ItemIsEnabled)
 
         # headline2
-        self.headline2 = QLabel("Keine Datei ausgewählt")
+        self.headline2 = QLabel("No data choosen")
         self.dropdown_layout.addWidget(self.headline2)
 
         # button to select plots
-        self.select_plotted_data_btn = QPushButton("Selektieren")
+        self.select_plotted_data_btn = QPushButton("Select")
         self.select_plotted_data_btn.clicked.connect(self.select_plotted_data)  # type: ignore
         self.select_plotted_data_btn.setVisible(False)
         self.dropdown_layout.addWidget(self.select_plotted_data_btn)
 
         # button to analyse
-        self.analyse_data_btn = QPushButton("Analysieren")
+        self.analyse_data_btn = QPushButton("Analyse")
         self.analyse_data_btn.clicked.connect(self.analyse_data)  # type: ignore
         self.analyse_data_btn.setVisible(False)
         self.dropdown_layout.addWidget(self.analyse_data_btn)
@@ -176,8 +176,8 @@ class MainWindow(QMainWindow):
             self.vb_list[axis_name] = vb
 
     def choose_file(self, s):
-        # ends function to prevent running the following code when "Datei auswählen" is set
-        if s == "Datei auswählen":
+        # ends function to prevent running the following code when "Choose data" is set
+        if s == "Choose data":
             return
 
         # starts loading window
@@ -189,12 +189,12 @@ class MainWindow(QMainWindow):
         # set headline 2
         try:
             year, month, day, hr, minutes = str(2000 + int(s[:2])), s[2:4], s[4:6], s[7:9], s[9:11]
-            hint = s[12:]
-            self.headline2.setText("Jahr: " + year
-                                   + ", Monat: " + month
-                                   + ", Tag: " + day
-                                   + ", Start der Messung: " + hr + ":" + minutes
-                                   + ", Bemerkung: " + hint)
+            note = s[12:]
+            self.headline2.setText("Year: " + year
+                                   + ", Month: " + month
+                                   + ", Day: " + day
+                                   + ", Start of meassurment: " + hr + ":" + minutes
+                                   + ", Note: " + note)
         except ValueError:
             self.headline2.setText(s)
 
@@ -219,8 +219,8 @@ class MainWindow(QMainWindow):
                 self.df[col] = self.df[col].str.replace(',', '.').astype(float)
 
         # changes hh:mm:ss to minutes
-        if self.CONFIG["settings"]["column_in_hh_mm_ss"]:
-            time_col = self.CONFIG["settings"]["column_in_hh_mm_ss"]
+        if self.CONFIG["settings"]["format_hh_mm_ss"]:
+            time_col = self.CONFIG["settings"]["format_hh_mm_ss"]
             for i in range(len(self.df)):
                 h, m, s = self.df.iloc[i][time_col].split(':')
                 self.df.at[i, time_col] = int(h) * 3600 + int(m) * 60 + int(s)

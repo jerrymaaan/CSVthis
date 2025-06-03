@@ -28,7 +28,7 @@ class AnalyseWindow(QWidget):
         self.CONFIG = config
 
         # select window settings
-        self.setWindowTitle("Analysieren")
+        self.setWindowTitle("Analyse")
         self.setMinimumSize(QSize(800, 800))
 
         # set styles
@@ -43,7 +43,7 @@ class AnalyseWindow(QWidget):
         self.shortcut_exit.activated.connect(self.close)  # type: ignore
 
         # headline
-        self.show_df = QLabel("Datenwerte")
+        self.show_df = QLabel("Datapoints")
         self.win_layout.addWidget(self.show_df)
 
         # data table
@@ -61,7 +61,7 @@ class AnalyseWindow(QWidget):
         self.data_table.customContextMenuRequested.connect(self.show_context_menu)  # type: ignore
 
         # headline 2
-        self.show_df = QLabel("Auswertung")
+        self.show_df = QLabel("Results")
         self.win_layout.addWidget(self.show_df)
 
         # calc table
@@ -99,8 +99,8 @@ class AnalyseWindow(QWidget):
         # creates actions
         menu = QMenu()
         set_start = menu.addAction("Start")
-        set_end = menu.addAction("Ende")
-        unselect = menu.addAction("Alles Entfernen")
+        set_end = menu.addAction("End")
+        unselect = menu.addAction("Remove all")
         action = menu.exec_(self.data_table.viewport().mapToGlobal(position))
 
         if action == set_start:
@@ -206,10 +206,10 @@ class AnalyseWindow(QWidget):
 
             # creates alarm window
             msg = QMessageBox()
-            msg.setWindowTitle("Fehler!")
-            msg.setText(f"Der Startwert \n"
+            msg.setWindowTitle("Error!")
+            msg.setText(f"start value \n"
                         f"x = {self.start_x_val}\n"
-                        f"muss kleiner sein als der Endwert\n"
+                        f"must be below end value \n"
                         f"x = {self.end_x_val}.")
             msg.setStandardButtons(QMessageBox.Ok)
             msg.exec_()

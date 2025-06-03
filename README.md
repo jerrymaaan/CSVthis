@@ -57,7 +57,7 @@ Not naming the CSV file as described won't cause an error! It just sets the head
 
 ### File structure
 The CSV file should contain at least one column for x data and one column for y data. 
-In the first row has to be a name for each data set.
+In the first row has to be a name for each data set. See /data for examples.
 
 ## Configuration
 You can and should change settings in the config.json file, regarding your CSV files and your data.
@@ -70,7 +70,7 @@ Contains global application settings.
 - use_case: Name for your personal application 
 (shown in window title top left).
 - version: Current version of CSVthis. No need to change.
-- column_in_hh_mm_ss: Name of a column containing time values in
+- format_hh_mm_ss: Name of a column containing time values in
 hh:mm:ss format and has to be converted into seconds. Recommended
 to use, because CSVthis can't plot the format hh:mm:ss yet.
 Set to false if not needed.
@@ -127,17 +127,18 @@ handled take a look at calc_data() in main_window.py.
 1. First choose a file to analyse in the top left corner. 
 Depending on the config.json the graphs should appear in the plot 
 window. By left-clicking a graph its corresponding label will be shown. 
-Left-click again hide it.
-2. The button "Selektieren" opens a new window to hide selected
+Left-click again to hide it.
+Right-click to open context menu.
+2. The button "Select" opens a new window to hide selected
 graphs from the plot window.
-3. The button "Analysieren" opens another window which shows all plotted
-data points. Right click to set a start and end row in the table. 
+3. The button "Analyse" opens another window which shows all plotted
+data points. Right-click to open context menu and set a start and end row in the table. 
 If set correctly there should appear resulting values in the table beneath 
 and some dashed lines in the plot window indicating set 
 start and end value.
 
 ## Additional
-### Weird Curves
+### Weird curve behaviour
 If some curves in the plot can't be hidden via the select menu, 
 try renaming the columns in the CSV file. 
 Also rename the columns in the config.json. The following column names may

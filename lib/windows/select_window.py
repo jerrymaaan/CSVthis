@@ -22,7 +22,7 @@ class SelectWindow(QWidget):
         self.CONFIG = config
 
         # select window settings
-        self.setWindowTitle("Selektieren")
+        self.setWindowTitle("Select")
         self.setMinimumSize(QSize(400, 800))
 
         # set styles
@@ -38,7 +38,7 @@ class SelectWindow(QWidget):
 
         # adds QTreeWidget
         self.tree = QTreeWidget(self)
-        self.tree.setHeaderLabel("Auswahl der Datenreihen")
+        self.tree.setHeaderLabel("Choose Datasets")
         self.win_layout.addWidget(self.tree)
 
         # adds tree parent for main_y_axis
@@ -48,7 +48,7 @@ class SelectWindow(QWidget):
         self.tree_parent_list[main_y_axis_name] = QTreeWidgetItem(self.tree, [main_y_axis_name])
 
         # button to un-/check all
-        self.un_check_all_btn = QPushButton("Alles selektieren")
+        self.un_check_all_btn = QPushButton("(Un-)select all")
         self.un_check_all_btn_state = "uncheck"  # saves state (uncheck or check)
         self.un_check_all_btn.clicked.connect(self.un_select_all)  # type: ignore
         self.win_layout.addWidget(self.un_check_all_btn)
